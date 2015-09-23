@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
-
-import com.erised.R;
 import com.erised.helper.VerifyLocation;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -27,10 +25,6 @@ public class MainActivity extends Activity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_main);
-
-
-        VerifyLocation verifyLocation = new VerifyLocation(this);
-        verifyLocation.checkLocation();
 
         info = (TextView)findViewById(R.id.info);
         loginButton = (LoginButton)findViewById(R.id.login_button);
@@ -57,6 +51,15 @@ public class MainActivity extends Activity {
                 info.setText("Login attempt failed.");
             }
         });
+    }
+
+    @Override
+
+    protected void onStart() {
+        super.onStart();
+
+        VerifyLocation verifyLocation = new VerifyLocation(this);
+        verifyLocation.checkLocation();
     }
 
     @Override
