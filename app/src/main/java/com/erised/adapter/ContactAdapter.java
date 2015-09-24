@@ -21,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.erised.R;
 import com.erised.models.ContactInfo;
 
@@ -34,7 +33,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     public ContactAdapter(List<ContactInfo> contactList) {
         this.contactList = contactList;
     }
-
 
     @Override
     public int getItemCount() {
@@ -68,9 +66,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
         public ContactViewHolder(View v) {
             super(v);
-            vName =  (TextView) v.findViewById(R.id.txtName);
-            vSurname = (TextView)  v.findViewById(R.id.txtSurname);
-            vEmail = (TextView)  v.findViewById(R.id.txtEmail);
+            vName = (TextView) v.findViewById(R.id.txtName);
+            vSurname = (TextView) v.findViewById(R.id.txtSurname);
+            vEmail = (TextView) v.findViewById(R.id.txtEmail);
             vTitle = (TextView) v.findViewById(R.id.title);
         }
     }

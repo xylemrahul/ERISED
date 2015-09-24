@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -30,7 +32,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     private SignInButton mSignInButton;
 
     private String TAG = "Hello";
-//
+    //
     /* Request code used to invoke sign in user interactions. */
     private static final int RC_SIGN_IN = 0;
 
@@ -63,6 +65,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                 .build();
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
             @Override
             public void onSuccess(LoginResult loginResult) {
                 info.setText(
@@ -90,6 +93,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
         info = (TextView) findViewById(R.id.info);
         loginButton = (LoginButton) findViewById(R.id.login_button);
+
     }
 
     @Override

@@ -1,8 +1,11 @@
 package com.erised;
 
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -16,26 +19,36 @@ import java.util.List;
 
 public class ProductsActivity extends AppCompatActivity {
 
+    private FloatingActionButton fabButton;
+    RecyclerView recList;
+    CollapsingToolbarLayout collapsingToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
 
-
-        RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
-        recList.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recList.setLayoutManager(llm);
+        initWidgets();
 
         ContactAdapter ca = new ContactAdapter(createList(30));
         recList.setAdapter(ca);
+        recList.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    private void initWidgets() {
+
+        collapsingToolbar =
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle("ERISED");
+
+        recList = (RecyclerView) findViewById(R.id.cardList);
+        recList.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private List<ContactInfo> createList(int size) {
 
         List<ContactInfo> result = new ArrayList<ContactInfo>();
-        for (int i=1; i <= size; i++) {
+        for (int i = 1; i <= size; i++) {
             ContactInfo ci = new ContactInfo();
             ci.name = ContactInfo.NAME_PREFIX + i;
             ci.surname = ContactInfo.SURNAME_PREFIX + i;
