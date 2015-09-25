@@ -15,11 +15,6 @@
             android:name=".MainActivity"
             android:label="@string/app_name">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -32,8 +27,15 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".ProductsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".ErisedMenuActivity"
+            android:label="@string/title_activity_erised_menu"></activity>
     </application>
 
 </manifest>

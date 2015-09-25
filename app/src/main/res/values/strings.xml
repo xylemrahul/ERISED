@@ -27,5 +27,8 @@
     <!-- Button labels -->
     <string name="sign_out">Sign Out</string>
     <string name="disconnect">Disconnect</string>
+    <string name="title_activity_erised_menu">ErisedMenuActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

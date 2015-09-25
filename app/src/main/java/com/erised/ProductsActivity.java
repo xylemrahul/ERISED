@@ -19,8 +19,8 @@ import java.util.List;
 
 public class ProductsActivity extends AppCompatActivity {
 
-    private FloatingActionButton fabButton;
-    RecyclerView recList;
+    //    private FloatingActionButton fabButton;
+    private RecyclerView recList;
     CollapsingToolbarLayout collapsingToolbar;
 
     @Override
@@ -43,6 +43,7 @@ public class ProductsActivity extends AppCompatActivity {
 
         recList = (RecyclerView) findViewById(R.id.cardList);
         recList.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     private List<ContactInfo> createList(int size) {
@@ -52,12 +53,10 @@ public class ProductsActivity extends AppCompatActivity {
             ContactInfo ci = new ContactInfo();
             ci.name = ContactInfo.NAME_PREFIX + i;
             ci.surname = ContactInfo.SURNAME_PREFIX + i;
-            ci.email = ContactInfo.EMAIL_PREFIX + i + "@test.com";
+//            ci.email = ContactInfo.EMAIL_PREFIX + i + "@test.com";
 
             result.add(ci);
-
         }
-
         return result;
     }
 
@@ -79,7 +78,6 @@ public class ProductsActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
