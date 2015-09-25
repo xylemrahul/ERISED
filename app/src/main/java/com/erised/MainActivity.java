@@ -6,9 +6,11 @@ import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.erised.helper.VerifyLocation;
 import com.facebook.CallbackManager;
@@ -24,7 +26,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
 
-public class MainActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     private TextView info;
     private LoginButton loginButton;
@@ -68,23 +70,29 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
             @Override
             public void onSuccess(LoginResult loginResult) {
-                info.setText(
-                        "User ID: "
-                                + loginResult.getAccessToken().getUserId()
-                                + "\n" +
-                                "Auth Token: "
-                                + loginResult.getAccessToken().getToken()
-                );
+//                info.setText(
+//                        "User ID: "
+//                                + loginResult.getAccessToken().getUserId()
+//                                + "\n" +
+//                                "Auth Token: "
+//                                + loginResult.getAccessToken().getToken()
+//                );
+
+                Intent intent = new Intent(MainActivity.this,ProductsActivity.class);
+                startActivity(intent);
+
             }
 
             @Override
             public void onCancel() {
-                info.setText("Login attempt canceled.");
+                Toast.makeText(MainActivity.this,"Login attempt canceled",Toast.LENGTH_LONG).show();
+//                info.setText("Login attempt canceled.");
             }
 
             @Override
             public void onError(FacebookException e) {
-                info.setText("Login attempt failed.");
+                Toast.makeText(MainActivity.this,"Error! Login attempt canceled",Toast.LENGTH_LONG).show();
+//              info.setText("Login attempt failed.");
             }
         });
     }
