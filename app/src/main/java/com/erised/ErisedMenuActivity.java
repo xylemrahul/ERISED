@@ -5,14 +5,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.erised.base.BaseActivity;
 
-public class ErisedMenuActivity extends ActionBarActivity {
+/**
+ * Created by Rahul on 26/9/15.
+ */
+
+public class ErisedMenuActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initUI() {
         setContentView(R.layout.activity_erised_menu);
 
+    }
+
+    @Override
+    protected void initData() {
 
     }
 

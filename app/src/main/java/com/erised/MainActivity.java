@@ -1,18 +1,17 @@
 package com.erised;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.erised.base.BaseActivity;
+import com.erised.dialog.LoadingDialog;
 import com.erised.helper.VerifyLocation;
+import com.erised.utils.SPManager;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -20,20 +19,26 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.Scopes;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+/**
+ * Created by Rahul on 14/9/15.
+ */
+public class MainActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     private TextView info;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
-    private SignInButton mSignInButton;
+    private Button mSignInButton;
 
     private String TAG = "Hello";
+    private String mSocialId, mSocialUsername, mSocialEmailId, mSocialProfilePicUrl, mGender;
+
     //
     /* Request code used to invoke sign in user interactions. */
     private static final int RC_SIGN_IN = 0;
@@ -41,21 +46,44 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     /* Client used to interact with Google APIs. */
     private GoogleApiClient mGoogleApiClient;
 
-    /* Is there a ConnectionResult resolution in progress? */
-    private boolean mIsResolving = false;
+    /**
+     * A flag indicating that a PendingIntent is in progress and prevents
+     * us from starting further intents. *
+     */
+    private boolean mIntentInProgress;
 
-    /* Should we automatically resolve ConnectionResults when possible? */
-    private boolean mShouldResolve = false;
+    /**
+     * Track whether the sign-in button has been clicked so that we know to resolve
+     * all issues preventing sign-in without waiting.  *
+     */
+    private boolean mSignInClicked;
+
+    /**
+     * Store the connection result from onConnectionFailed callbacks so that we can
+     * resolve them when the user clicks sign-in.  *
+     */
+    private ConnectionResult mConnectionResult;
+   /* private TextView lblProfileName;
+    private ImageView imgProfile;*/
+
+    private LoadingDialog loadingDialog;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initUI() {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_main);
 
-        initWidgets();
+        mSignInButton = (Button) findViewById(R.id.btnSignIn);
+        info = (TextView) findViewById(R.id.info);
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+    }
+
+    @Override
+    protected void initData() {
+
+        loadingDialog = LoadingDialog.getInstance();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -65,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .addScope(new Scope(Scopes.PLUS_ME))
                 .addScope(new Scope(Scopes.PROFILE))
                 .build();
+
+        mSignInButton.setOnClickListener(this);
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 
@@ -78,29 +108,21 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //                                + loginResult.getAccessToken().getToken()
 //                );
 
-                Intent intent = new Intent(MainActivity.this,ProductsActivity.class);
-                startActivity(intent);
-
+                launchProductActivity();
             }
 
             @Override
             public void onCancel() {
-                Toast.makeText(MainActivity.this,"Login attempt canceled",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Login attempt canceled", Toast.LENGTH_LONG).show();
 //                info.setText("Login attempt canceled.");
             }
 
             @Override
             public void onError(FacebookException e) {
-                Toast.makeText(MainActivity.this,"Error! Login attempt canceled",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Error! Login attempt canceled", Toast.LENGTH_LONG).show();
 //              info.setText("Login attempt failed.");
             }
         });
-    }
-
-    private void initWidgets() {
-        mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
-        info = (TextView) findViewById(R.id.info);
-        loginButton = (LoginButton) findViewById(R.id.login_button);
 
     }
 
@@ -116,55 +138,66 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     protected void onStop() {
         super.onStop();
-        mGoogleApiClient.disconnect();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+    /*super.onActivityResult(requestCode, resultCode, data);*/
 
-        Log.d(TAG, "onActivityResult:" + requestCode + ":" + resultCode + ":" + data);
+        switch (requestCode) {
+            case RC_SIGN_IN:
+                if (resultCode != RESULT_OK) {
+                    mSignInClicked = false;
+                }
+                mIntentInProgress = false;
+                if (!mGoogleApiClient.isConnecting()) {
 
-        if (requestCode == RC_SIGN_IN) {
-            // If the error resolution was not successful we should not resolve further.
-            if (resultCode != RESULT_OK) {
-                mShouldResolve = false;
-            }
+                    mGoogleApiClient.connect();
+                }
+                break;
 
-            mIsResolving = false;
-            mGoogleApiClient.connect();
+            default:
+
+                break;
         }
     }
 
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.sign_in_button) {
-            onSignInClicked();
+        switch (v.getId()) {
+
+            case R.id.btnSignIn:
+
+                // mIntentInProgress = false;
+                if (!mGoogleApiClient.isConnecting()) {
+                    mSignInClicked = true;
+                    resolveSignInError();
+                }
+
+                break;
+           /* case R.id.btnNext:
+                Intent intent = new Intent(SignInActivity.this,HomeActivity.class);
+                startActivity(intent);
+                break;*/
         }
-    }
-
-    private void onSignInClicked() {
-        // User clicked the sign-in button, so begin the sign-in process and automatically
-        // attempt to resolve any errors that occur.
-        mShouldResolve = true;
-        mGoogleApiClient.connect();
-
-        // Show a message to the user that we are signing in.
-//        mStatusTextView.setText(R.string.signing_in);
     }
 
     @Override
     public void onConnected(Bundle bundle) {
 
-        // onConnected indicates that an account was selected on the device, that the selected
-        // account has granted any requested permissions to our app and that we were able to
-        // establish a service connection to Google Play services.
-        Log.d(TAG, "onConnected:" + bundle);
-        mShouldResolve = false;
+        // We've resolved any connection errors.  mGoogleApiClient can be used to
+        // access Google APIs on behalf of the user.
+        mSignInClicked = false;
 
-        // Show the signed-in UI
-//        showSignedInUI();
+        if (mGoogleApiClient.isConnected()) {
+
+            loadingDialog.showDialog(this);
+            getGooglePlusDetails();
+        }
     }
 
     @Override
@@ -175,29 +208,113 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
-        // Could not connect to Google Play Services.  The user needs to select an account,
-        // grant permissions or resolve an error in order to sign in. Refer to the javadoc for
-        // ConnectionResult to see possible error codes.
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        if (!connectionResult.hasResolution()) {
 
-        if (!mIsResolving && mShouldResolve) {
-            if (connectionResult.hasResolution()) {
-                try {
-                    connectionResult.startResolutionForResult(this, RC_SIGN_IN);
-                    mIsResolving = true;
-                } catch (IntentSender.SendIntentException e) {
-                    Log.e(TAG, "Could not resolve ConnectionResult.", e);
-                    mIsResolving = false;
-                    mGoogleApiClient.connect();
-                }
-            } else {
-                // Could not resolve the connection result, show the user an
-                // error dialog.
-//                showErrorDialog(connectionResult);
-            }
-        } else {
-            // Show the signed-out UI
-//            showSignedOutUI();
+            GooglePlayServicesUtil.getErrorDialog(connectionResult.getErrorCode(), this, 0).show();
+            return;
         }
+
+        if (!mIntentInProgress) {
+            // Store the ConnectionResult for later usage
+            mConnectionResult = connectionResult;
+
+            if (mSignInClicked) {
+
+                // The user has already clicked 'sign-in' so we attempt to
+                // resolve all errors until the user is signed in, or they cancel.
+                resolveSignInError();
+            }
+        }
+    }
+
+    /**
+     * A helper method to resolve the current ConnectionResult error.
+     */
+    private void resolveSignInError() {
+
+        if (mConnectionResult.hasResolution()) {
+            try {
+                mIntentInProgress = true;
+                mConnectionResult.startResolutionForResult(this, RC_SIGN_IN);
+                //startIntentSenderForResult(mConnectionResult.getResolution().getIntentSender(), RC_SIGN_IN, null, 0, 0, 0);
+            } catch (IntentSender.SendIntentException e) {
+                // The intent was canceled before it was sent.  Return to the default
+                // state and attempt to connect to get an updated ConnectionResult.
+                mIntentInProgress = false;
+                mGoogleApiClient.connect();
+            }
+        }
+    }
+
+    private void signoutGoogle() {
+
+        if (mGoogleApiClient.isConnected()) {
+            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+            mGoogleApiClient.disconnect();
+            mGoogleApiClient.connect();
+        }
+    }
+
+    private void getGooglePlusDetails() {
+        try {
+            if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
+
+                Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+
+                mSocialId = person.getId();
+                mSocialUsername = person.getDisplayName();
+                mSocialEmailId = Plus.AccountApi.getAccountName(mGoogleApiClient);
+                mSocialProfilePicUrl = person.getImage().getUrl().substring(0, person.getImage().getUrl().length() - 2) + 500/*Image Size*/;
+                switch (person.getGender()) {
+
+                    case Person.Gender.MALE:
+                        mGender = "MALE";
+                        break;
+                    case Person.Gender.FEMALE:
+                        mGender = "FEMALE";
+                        break;
+                    case Person.Gender.OTHER:
+                        mGender = "OTHER";
+                        break;
+                }
+
+
+              /*  Picasso.with(SignInActivity.this).load(mSocialProfilePicUrl).into(imgProfile);
+                lblProfileName.setText("Name "+mSocialUsername+"\nEmail ID "+mSocialEmailId);*/
+
+                logD("Social Id == " + mSocialId);
+                logD("Profile_UserName == " + mSocialUsername);
+                logD("Profile_Image == " + mSocialProfilePicUrl);
+                logD("Gender " + mGender);
+                SPManager.save(SPManager.KEY_USERID, mSocialId);
+                SPManager.save(SPManager.KEY_USERNAME, mSocialUsername);
+                SPManager.save(SPManager.KEY_PROFILE_PIC, mSocialProfilePicUrl);
+                SPManager.save(SPManager.KEY_GENDER, mGender);
+                SPManager.saveBoolean(SPManager.KEY_LOGGED_IN, true);
+
+                launchProductActivity();
+                /***get the google plus details and do signout. no more need of google plus session***/
+
+                //if()
+                signoutGoogle();
+            } else {
+
+                signoutGoogle();
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+            loadingDialog.dismissDialog();
+        }
+    }
+
+
+    private void launchProductActivity() {
+
+        finish();
+
+        Intent intent = new Intent(MainActivity.this, ProductsActivity.class);
+        startActivity(intent);
     }
 }

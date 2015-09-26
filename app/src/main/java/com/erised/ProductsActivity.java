@@ -17,6 +17,9 @@ import com.erised.models.ContactInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Rahul on 17/9/15.
+ */
 public class ProductsActivity extends AppCompatActivity {
 
     //    private FloatingActionButton fabButton;

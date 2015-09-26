@@ -26,6 +26,10 @@ import com.erised.models.ContactInfo;
 
 import java.util.List;
 
+/**
+ * Created by rahul on 21/9/15.
+ */
+
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
     private List<ContactInfo> contactList;
