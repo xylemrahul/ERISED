@@ -1,8 +1,14 @@
 package com.erised;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -108,7 +114,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
 //                                + loginResult.getAccessToken().getToken()
 //                );
 
-                launchProductActivity();
+                launchMenuActivity();
             }
 
             @Override
@@ -123,7 +129,14 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
 //              info.setText("Login attempt failed.");
             }
         });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -292,7 +305,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
                 SPManager.save(SPManager.KEY_GENDER, mGender);
                 SPManager.saveBoolean(SPManager.KEY_LOGGED_IN, true);
 
-                launchProductActivity();
+                launchMenuActivity();
                 /***get the google plus details and do signout. no more need of google plus session***/
 
                 //if()
@@ -310,11 +323,11 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
     }
 
 
-    private void launchProductActivity() {
+    private void launchMenuActivity() {
 
         finish();
 
-        Intent intent = new Intent(MainActivity.this, ProductsActivity.class);
+        Intent intent = new Intent(MainActivity.this, ErisedMenuActivity.class);
         startActivity(intent);
     }
 }

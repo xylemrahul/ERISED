@@ -2,6 +2,7 @@ package com.erised;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,9 +14,13 @@ import com.erised.base.BaseActivity;
 
 public class ErisedMenuActivity extends BaseActivity {
 
+
+    private RecyclerView menu;
+
     @Override
     protected void initUI() {
         setContentView(R.layout.activity_erised_menu);
+
 
     }
 
