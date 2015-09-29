@@ -51,9 +51,9 @@
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView
-        android:background="@android:color/transparent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,140 +63,140 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tx_shirts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/back"
-                    android:text="Friends Home "
                     android:layout_margin="5dp"
+                    android:background="@drawable/back"
                     android:padding="10dp"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/back"
-                    android:layout_margin="5dp"
-                    android:text="Some text"
-                    android:padding="10dp"
-                    android:textSize="20sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/back"
-                    android:text="Some text"
-                    android:layout_margin="5dp"
-                    android:padding="10dp"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/back"
-                    android:layout_margin="5dp"
-                    android:text="Some text"
-                    android:padding="10dp"
-                    android:textSize="20sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/back"
-                    android:text="Some text"
-                    android:layout_margin="5dp"
                     android:drawableRight="@drawable/ic_search"
-                    android:padding="10dp"
-                    android:textSize="20sp"/>
+                    android:drawablePadding="10dp"
+                    android:text="T - Shirts (Men)"
+                    android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/tx_sarees"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/back"
                     android:layout_margin="5dp"
-                    android:text="Some text"
+                    android:background="@drawable/back"
+                    android:drawableRight="@drawable/ic_search"
+                    android:drawablePadding="10dp"
                     android:padding="10dp"
-                    android:textSize="20sp"/>
+                    android:text="Sarees"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tx_sunglass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/back"
-                    android:text="Some text"
                     android:layout_margin="5dp"
-                    android:padding="10dp"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:background="@drawable/back"
-                    android:layout_margin="5dp"
-                    android:text="Some text"
+                    android:drawableRight="@drawable/ic_search"
+                    android:drawablePadding="10dp"
                     android:padding="10dp"
-                    android:textSize="20sp"/>
+                    android:text="Sunglasses (Men)"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tx_shop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/back"
-                    android:text="Some text"
                     android:layout_margin="5dp"
-                    android:padding="10dp"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:background="@drawable/back"
-                    android:layout_margin="5dp"
-                    android:text="Some text"
+                    android:drawableRight="@drawable/ic_search"
+                    android:drawablePadding="10dp"
                     android:padding="10dp"
-                    android:textSize="20sp"/>
+                    android:text="Family Shopping"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/tx_ethnic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/back"
+                    android:drawableRight="@drawable/ic_search"
+                    android:drawablePadding="10dp"
+                    android:padding="10dp"
+                    android:text="Ethnic Wear(Women)"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tx_cosmetic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_search"
+                    android:drawablePadding="10dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/back"
+                    android:padding="10dp"
+                    android:text="Cosmetics (Men)"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tx_bags"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/back"
+                    android:drawableRight="@drawable/ic_search"
+                    android:drawablePadding="10dp"
+                    android:padding="10dp"
+                    android:text="Bags and Wallets (Men)"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>
