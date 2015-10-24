@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
-      <module fileurl="file://$PROJECT_DIR$/ERISED-master.iml" filepath="$PROJECT_DIR$/ERISED-master.iml" />
-=======
->>>>>>> 0de16e3f0cecfec5dad091243acc6b33a1f10277
       <module fileurl="file://$PROJECT_DIR$/Erised.iml" filepath="$PROJECT_DIR$/Erised.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
-<<<<<<< HEAD
 </project>
-
-=======
-</project>
->>>>>>> 0de16e3f0cecfec5dad091243acc6b33a1f10277

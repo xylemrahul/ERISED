@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.erised.adapter.ContactAdapter;
+import com.erised.helper.RecyclerViewClick;
 import com.erised.models.ContactInfo;
 
 import java.util.ArrayList;
@@ -36,6 +37,13 @@ public class ProductsActivity extends AppCompatActivity {
         ContactAdapter ca = new ContactAdapter(createList(30));
         recList.setAdapter(ca);
         recList.setItemAnimator(new DefaultItemAnimator());
+
+        ca.setOnClick(new RecyclerViewClick() {
+            @Override
+            public void onItemClick(int pos) {
+
+            }
+        });
     }
 
     private void initWidgets() {

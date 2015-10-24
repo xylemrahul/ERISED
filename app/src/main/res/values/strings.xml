@@ -30,5 +30,7 @@
     <string name="title_activity_erised_menu">ErisedMenuActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_product_details">ProductDetails</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-<<<<<<< HEAD
-    <option name="DEFAULT_COMPILER" value="Javac" />
-=======
->>>>>>> 0de16e3f0cecfec5dad091243acc6b33a1f10277
     <resourceExtensions />
     <wildcardResourcePatterns>
       <entry name="!?*.java" />
@@ -23,9 +19,4 @@
       </profile>
     </annotationProcessing>
   </component>
-<<<<<<< HEAD
 </project>
-
-=======
-</project>
->>>>>>> 0de16e3f0cecfec5dad091243acc6b33a1f10277

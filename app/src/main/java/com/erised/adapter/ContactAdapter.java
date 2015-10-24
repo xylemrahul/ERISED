@@ -21,7 +21,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.erised.R;
+import com.erised.helper.RecyclerViewClick;
 import com.erised.models.ContactInfo;
 
 import java.util.List;
@@ -34,6 +36,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     private List<ContactInfo> contactList;
 
+    RecyclerViewClick event;
+
     public ContactAdapter(List<ContactInfo> contactList) {
         this.contactList = contactList;
     }
@@ -44,12 +48,23 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     }
 
     @Override
-    public void onBindViewHolder(ContactViewHolder contactViewHolder, int i) {
-        ContactInfo ci = contactList.get(i);
+    public void onBindViewHolder(ContactViewHolder contactViewHolder, final int position) {
+        ContactInfo ci = contactList.get(position);
         contactViewHolder.vName.setText(ci.name);
         contactViewHolder.vSurname.setText(ci.surname);
 //        contactViewHolder.vEmail.setText(ci.email);
 //        contactViewHolder.vTitle.setText(ci.name + " " + ci.surname);
+
+        contactViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (event != null) {
+
+                    event.onItemClick(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -59,6 +74,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
                 inflate(R.layout.card_view_layout, viewGroup, false);
 
         return new ContactViewHolder(itemView);
+    }
+
+    public void setOnClick(RecyclerViewClick event) {
+
+        this.event = event;
     }
 
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
