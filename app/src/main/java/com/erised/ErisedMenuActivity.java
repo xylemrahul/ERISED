@@ -105,7 +105,7 @@ public class ErisedMenuActivity extends BaseActivity implements Animation.Animat
     @Override
     public void onClick(View view) {
 
-        Intent intent = new Intent(ErisedMenuActivity.this,ProductsActivity.class);;
+        Intent intent = new Intent(ErisedMenuActivity.this,ProductDetails.class);
 
         switch (view.getId()) {
             case R.id.tx_shirts:
