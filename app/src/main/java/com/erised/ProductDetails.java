@@ -1,5 +1,6 @@
 package com.erised;
 
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -19,7 +20,16 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class ProductDetails extends AppCompatActivity {
+import com.erised.fragment.CollectionFrag;
+import com.erised.fragment.DealFrag;
+import com.erised.fragment.InfoFrag;
+import com.erised.fragment.ReviewFrag;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductDetails extends AppCompatActivity implements CollectionFrag.OnFragmentInteractionListener,
+        DealFrag.OnFragmentInteractionListener, InfoFrag.OnFragmentInteractionListener, ReviewFrag.OnFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -37,6 +47,7 @@ public class ProductDetails extends AppCompatActivity {
     private ViewPager mViewPager;
     private TabLayout tabLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +55,9 @@ public class ProductDetails extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setTitle("Khaital Store");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -86,6 +99,10 @@ public class ProductDetails extends AppCompatActivity {
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
+        mSectionsPagerAdapter.addFrag(new CollectionFrag(), "COLLECTION");
+        mSectionsPagerAdapter.addFrag(new InfoFrag(), "INFO");
+        mSectionsPagerAdapter.addFrag(new DealFrag(), "DEAL");
+        mSectionsPagerAdapter.addFrag(new ReviewFrag(), "REVIEW");
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
@@ -110,6 +127,26 @@ public class ProductDetails extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCollectionFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onReviewFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onInfoFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onDealFragmentInteraction(Uri uri) {
+
     }
 
     /**
@@ -153,6 +190,9 @@ public class ProductDetails extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -161,26 +201,34 @@ public class ProductDetails extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+//            return PlaceholderFragment.newInstance(position + 1);
+            return mFragmentList.get(position);
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return mFragmentList.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
-            return null;
+//            switch (position) {
+//                case 0:
+//                    return "COLLECTION";
+//                case 1:
+//                    return "INFO";
+//                case 2:
+//                    return "DEALS";
+//                case 3:
+//                    return "REVIEW";
+//            }
+//            return null;
+            return mFragmentTitleList.get(position);
+        }
+
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
         }
     }
 }

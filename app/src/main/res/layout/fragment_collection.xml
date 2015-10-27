@@ -1,0 +1,49 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.erised.fragment.CollectionFrag">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ImageView
+                android:id="@+id/img_bg"
+                android:elevation="5dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/border"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
+
+            <TextView
+                android:elevation="5dp"
+                android:id="@+id/tx_add"
+                android:layout_width="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/img_bg"
+                android:layout_alignBottom="@+id/img_bg"/>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</FrameLayout>
