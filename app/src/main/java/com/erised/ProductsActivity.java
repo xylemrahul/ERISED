@@ -48,13 +48,11 @@ public class ProductsActivity extends AppCompatActivity {
 
     private void initWidgets() {
 
-        collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle("ERISED");
 
         recList = (RecyclerView) findViewById(R.id.cardList);
         recList.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     private List<ContactInfo> createList(int size) {

@@ -4,6 +4,9 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -29,8 +32,14 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.location.ActivityRecognition;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Rahul on 14/9/15.
@@ -41,6 +50,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     private Button mSignInButton;
+    String city;
 
     private String TAG = "Hello";
     private String mSocialId, mSocialUsername, mSocialEmailId, mSocialProfilePicUrl, mGender;
@@ -73,6 +83,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
     private ImageView imgProfile;*/
 
     private LoadingDialog loadingDialog;
+    private Location mLastLocation;
 
     @Override
     protected void initUI() {
@@ -94,7 +105,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
-                .addApi(Plus.API)
+                .addApi(Plus.API).addApi(LocationServices.API)
+                .addApi(ActivityRecognition.API)
                 .addScope(new Scope(Scopes.PLUS_LOGIN))
                 .addScope(new Scope(Scopes.PLUS_ME))
                 .addScope(new Scope(Scopes.PROFILE))
@@ -146,6 +158,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
         mGoogleApiClient.connect();
         VerifyLocation verifyLocation = new VerifyLocation(this);
         verifyLocation.checkLocation();
+
     }
 
     @Override
@@ -171,7 +184,6 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
                     mGoogleApiClient.connect();
                 }
                 break;
-
             default:
 
                 break;
@@ -202,14 +214,41 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
     @Override
     public void onConnected(Bundle bundle) {
 
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        if (mLastLocation != null) {
+//            mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
+//            mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
+
+            Toast.makeText(this, String.valueOf(mLastLocation.getLatitude()) + String.valueOf(mLastLocation.getLongitude()), Toast.LENGTH_LONG).show();
+
+        }
+
         // We've resolved any connection errors.  mGoogleApiClient can be used to
         // access Google APIs on behalf of the user.
         mSignInClicked = false;
 
         if (mGoogleApiClient.isConnected()) {
 
+            Geocoder geocoder;
+            List<Address> addresses = null;
+            geocoder = new Geocoder(this, Locale.getDefault());
+
+            try {
+                addresses = geocoder.getFromLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+            String knownName = addresses.get(0).getFeatureName();
             loadingDialog.showDialog(this);
             getGooglePlusDetails();
+
         }
     }
 
@@ -291,8 +330,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
                         break;
                 }
 
-
-              /*  Picasso.with(SignInActivity.this).load(mSocialProfilePicUrl).into(imgProfile);
+              /* Picasso.with(SignInActivity.this).load(mSocialProfilePicUrl).into(imgProfile);
                 lblProfileName.setText("Name "+mSocialUsername+"\nEmail ID "+mSocialEmailId);*/
 
                 logD("Social Id == " + mSocialId);
@@ -328,6 +366,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
         finish();
 
         Intent intent = new Intent(MainActivity.this, ErisedMenuActivity.class);
+        intent.putExtra("City",city);
         startActivity(intent);
     }
 }

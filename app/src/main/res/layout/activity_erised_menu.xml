@@ -12,9 +12,13 @@
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <include
+        <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            layout="@layout/app_bar" />
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,9 +77,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@drawable/back"
-                    android:padding="10dp"
-                    android:drawableRight="@drawable/ic_search"
                     android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/ic_search"
+                    android:padding="10dp"
                     android:text="T - Shirts (Men)"
                     android:textSize="20sp" />
 
@@ -85,8 +89,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@drawable/back"
-                    android:drawableRight="@drawable/ic_search"
                     android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/ic_search"
                     android:padding="10dp"
                     android:text="Sarees"
                     android:textSize="20sp" />
@@ -106,8 +110,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@drawable/back"
-                    android:drawableRight="@drawable/ic_search"
                     android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/ic_search"
                     android:padding="10dp"
                     android:text="Sunglasses (Men)"
                     android:textSize="20sp" />
@@ -127,8 +131,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@drawable/back"
-                    android:drawableRight="@drawable/ic_search"
                     android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/ic_search"
                     android:padding="10dp"
                     android:text="Family Shopping"
                     android:textSize="20sp" />
@@ -148,8 +152,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@drawable/back"
-                    android:drawableRight="@drawable/ic_search"
                     android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/ic_search"
                     android:padding="10dp"
                     android:text="Ethnic Wear(Women)"
                     android:textSize="20sp" />
@@ -167,10 +171,10 @@
                     android:id="@+id/tx_cosmetic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_search"
-                    android:drawablePadding="10dp"
                     android:layout_margin="5dp"
                     android:background="@drawable/back"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/ic_search"
                     android:padding="10dp"
                     android:text="Cosmetics (Men)"
                     android:textSize="20sp" />
@@ -190,8 +194,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@drawable/back"
-                    android:drawableRight="@drawable/ic_search"
                     android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/ic_search"
                     android:padding="10dp"
                     android:text="Bags and Wallets (Men)"
                     android:textSize="20sp" />
