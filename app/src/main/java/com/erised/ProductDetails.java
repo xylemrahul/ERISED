@@ -1,5 +1,6 @@
 package com.erised;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -123,6 +124,8 @@ public class ProductDetails extends AppCompatActivity implements CollectionFrag.
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            startActivity(new Intent(ProductDetails.this, DirectionActivity.class));
             return true;
         }
 

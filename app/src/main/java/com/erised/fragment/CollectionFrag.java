@@ -13,7 +13,8 @@ import android.widget.TextView;
 import com.erised.R;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +37,7 @@ public class CollectionFrag extends Fragment {
     private ImageView bg;
     private TextView address;
 
+    public static final String BASE_URL = "http://erised.in/listing/khaital/?json=1";
 
     private OnFragmentInteractionListener mListener;
 
@@ -77,7 +79,10 @@ public class CollectionFrag extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_collection, container, false);
         bg = (ImageView) rootView.findViewById(R.id.img_bg);
 
-        address = (TextView)rootView.findViewById(R.id.tx_add);
+        address = (TextView) rootView.findViewById(R.id.tx_add);
+
+        getShopDetails();
+
         Picasso.with(getActivity()).load("http://erised.in//wp-content//uploads//2015//10//DSC_0383-600x600.jpg")
                 .into(bg);
 
@@ -109,6 +114,14 @@ public class CollectionFrag extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private void getShopDetails() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
 
     /**
