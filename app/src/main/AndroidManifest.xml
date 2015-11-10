@@ -17,14 +17,24 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/MyMaterialTheme">
+
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:name=".SplashActivity"
+            android:label="Material Design">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
         </activity>
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -51,11 +61,11 @@
         <activity
             android:name=".DirectionActivity"
             android:label="@string/title_activity_direction"
-            android:theme="@style/MyMaterialTheme"></activity>
+            android:theme="@style/MyMaterialTheme" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyB0NmfsoZmESk4pmasARhsKLdoek_7kLMs" />
+            android:value="AIzaSyBtoC4NSvdTWYLiOo4FQG2c57kbcIfOnJ4" />
     </application>
 
 </manifest>

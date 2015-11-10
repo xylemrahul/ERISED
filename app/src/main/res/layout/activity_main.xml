@@ -2,11 +2,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/app_bar" />
 
-    <EditText
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/black"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_above="@+id/login_button"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/colorAccent"
+        android:layout_marginRight="20dp">
+
+        <com.erised.utils.MyTextView
+            android:textColor="@android:color/white"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:text="LOGIN" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"></View>
+
+        <com.erised.utils.MyTextView
+            android:layout_width="0dp"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:text="SIGNUP"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+
+    <!--
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/app_bar" />-->
+
+    <!--<EditText
         android:id="@+id/et_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,18 +63,24 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_below="@+id/et_search"
-        android:textSize="18sp" />
+        android:textSize="18sp" />-->
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_centerInParent="true" />
+
+    <com.erised.utils.MyTextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/login_button"
+        android:text=""/>
 
     <Button
         android:id="@+id/btnSignIn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_below="@+id/login_button"
         android:layout_centerHorizontal="true"
         android:background="@drawable/google_sign_bg"

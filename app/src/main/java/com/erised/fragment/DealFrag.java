@@ -106,5 +106,4 @@ public class DealFrag extends Fragment {
         // TODO: Update argument type and name
         public void onDealFragmentInteraction(Uri uri);
     }
-
 }
