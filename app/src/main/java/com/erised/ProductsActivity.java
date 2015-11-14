@@ -1,18 +1,13 @@
 package com.erised;
 
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.erised.adapter.ContactAdapter;
-import com.erised.helper.RecyclerViewClick;
 import com.erised.models.ContactInfo;
 
 import java.util.ArrayList;
@@ -34,16 +29,16 @@ public class ProductsActivity extends AppCompatActivity {
 
         initWidgets();
 
-        ContactAdapter ca = new ContactAdapter(createList(30));
-        recList.setAdapter(ca);
-        recList.setItemAnimator(new DefaultItemAnimator());
-
-        ca.setOnClick(new RecyclerViewClick() {
-            @Override
-            public void onItemClick(int pos) {
-
-            }
-        });
+//        ContactAdapter ca = new ContactAdapter(createList(30));
+//        recList.setAdapter(ca);
+//        recList.setItemAnimator(new DefaultItemAnimator());
+//
+//        ca.setOnClick(new RecyclerViewClick() {
+//            @Override
+//            public void onItemClick(int pos) {
+//
+//            }
+//        });
     }
 
     private void initWidgets() {

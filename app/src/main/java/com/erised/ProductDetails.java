@@ -2,24 +2,20 @@ package com.erised;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.TextView;
 
 import com.erised.fragment.CollectionFrag;
 import com.erised.fragment.DealFrag;
@@ -58,6 +54,7 @@ public class ProductDetails extends AppCompatActivity implements CollectionFrag.
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle("Khaital Store");
+        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Set up the ViewPager with the sections adapter.
@@ -111,7 +108,8 @@ public class ProductDetails extends AppCompatActivity implements CollectionFrag.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_product_details, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_erised_menu, menu);
         return true;
     }
 
@@ -126,6 +124,10 @@ public class ProductDetails extends AppCompatActivity implements CollectionFrag.
         if (id == R.id.action_settings) {
 
             startActivity(new Intent(ProductDetails.this, DirectionActivity.class));
+            return true;
+        } else if (id == android.R.id.home) {
+
+            this.finish();
             return true;
         }
 
@@ -150,41 +152,6 @@ public class ProductDetails extends AppCompatActivity implements CollectionFrag.
     @Override
     public void onDealFragmentInteraction(Uri uri) {
 
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_product_details, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
     }
 
     /**

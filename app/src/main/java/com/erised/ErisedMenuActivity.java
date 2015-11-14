@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -37,7 +38,9 @@ public class ErisedMenuActivity extends BaseActivity implements Animation.Animat
         String city = intent.getStringExtra("City");
 
         getSupportActionBar().setTitle(city);
+        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         tshirt = (TextView) findViewById(R.id.tx_shirts);
         sarees = (TextView) findViewById(R.id.tx_sarees);
@@ -77,7 +80,8 @@ public class ErisedMenuActivity extends BaseActivity implements Animation.Animat
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_erised_menu, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_erised_menu, menu);
         return true;
     }
 
@@ -90,6 +94,10 @@ public class ErisedMenuActivity extends BaseActivity implements Animation.Animat
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        } else if (id == android.R.id.home) {
+
+            onBackPressed();
             return true;
         }
 
@@ -115,7 +123,7 @@ public class ErisedMenuActivity extends BaseActivity implements Animation.Animat
     @Override
     public void onClick(View view) {
 
-        Intent intent = new Intent(ErisedMenuActivity.this,ProductDetails.class);
+        Intent intent = new Intent(ErisedMenuActivity.this, ProductDetails.class);
 
         switch (view.getId()) {
             case R.id.tx_shirts:

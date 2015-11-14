@@ -7,11 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.erised.R;
+import com.erised.adapter.GridAdapter;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -37,9 +41,14 @@ public class CollectionFrag extends Fragment {
     private ImageView bg;
     private TextView address;
 
+    private GridAdapter adapter;
+    private GridView gridView;
+
     public static final String BASE_URL = "http://erised.in/listing/khaital/?json=1";
 
     private OnFragmentInteractionListener mListener;
+
+    private ArrayList<String> imageList = new ArrayList<String>();
 
     /**
      * Use this factory method to create a new instance of
@@ -78,6 +87,19 @@ public class CollectionFrag extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_collection, container, false);
         bg = (ImageView) rootView.findViewById(R.id.img_bg);
+
+        gridView = (GridView) rootView.findViewById(R.id.grid_gallery);
+
+        imageList.add(0, "http:\\/\\/magarmach.com\\/wp-content\\/uploads\\/2015\\/10\\/IMG_0926-150x150.jpg");
+        imageList.add(1, "http:\\/\\/magarmach.com\\/wp-content\\/uploads\\/2015\\/10\\/IMG_0923-150x150.jpg");
+        imageList.add(2, "http:\\/\\/magarmach.com\\/wp-content\\/uploads\\/2015\\/10\\/IMG_0926-150x150.jpg");
+        imageList.add(3, "http:\\/\\/magarmach.com\\/wp-content\\/uploads\\/2015\\/10\\/IMG_0923-150x150.jpg");
+        imageList.add(4, "http:\\/\\/magarmach.com\\/wp-content\\/uploads\\/2015\\/10\\/IMG_0926-150x150.jpg");
+        imageList.add(5, "http:\\/\\/magarmach.com\\/wp-content\\/uploads\\/2015\\/10\\/IMG_0923-150x150.jpg");
+
+        adapter = new GridAdapter(getActivity(), imageList);
+
+        gridView.setAdapter(adapter);
 
         address = (TextView) rootView.findViewById(R.id.tx_add);
 
@@ -122,6 +144,8 @@ public class CollectionFrag extends Fragment {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
+
     }
 
     /**

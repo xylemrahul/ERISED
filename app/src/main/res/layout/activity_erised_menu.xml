@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:hint="What`s your Desire ? "
+                    android:hint="What`s your Desire ?"
                     android:textColorHint="@android:color/white" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>

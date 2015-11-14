@@ -7,43 +7,63 @@
     <!-- TODO: Update blank fragment layout -->
 
     <ScrollView
-        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:fillViewport="true">
 
         <RelativeLayout
             android:id="@+id/rl_bg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/img_bg"
-                android:elevation="5dp"
-                android:scaleType="fitXY"
-                android:background="@drawable/border"
                 android:layout_width="match_parent"
-                android:layout_height="400dp" />
+                android:layout_height="300dp"
+                android:background="@drawable/border"
+                android:elevation="5dp"
+                android:scaleType="fitXY" />
 
             <TextView
-                android:elevation="5dp"
                 android:id="@+id/tx_add"
                 android:layout_width="wrap_content"
-                android:textSize="15sp"
-                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/img_bg"
+                android:layout_alignLeft="@+id/img_bg"
+                android:elevation="5dp"
                 android:padding="10dp"
                 android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tx_gallery"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/img_bg"
-                android:layout_alignBottom="@+id/img_bg"/>
+                android:layout_below="@+id/img_bg"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:text="PHOTO GALLERY"
+                android:textColor="@android:color/black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
+            <GridView
+                android:id="@+id/grid_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tx_gallery"
+                android:columnWidth="100dp"
+                android:gravity="center"
+                android:numColumns="auto_fit"
+                android:stretchMode="columnWidth">
 
+            </GridView>
         </RelativeLayout>
-
     </ScrollView>
-
 </FrameLayout>
