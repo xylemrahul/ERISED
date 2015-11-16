@@ -7,12 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.erised.R;
 import com.erised.adapter.GridAdapter;
+import com.erised.utils.ExpandableHeightGridView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class CollectionFrag extends Fragment {
     private TextView address;
 
     private GridAdapter adapter;
-    private GridView gridView;
+    private ExpandableHeightGridView gridView;
 
     public static final String BASE_URL = "http://erised.in/listing/khaital/?json=1";
 
@@ -88,7 +88,7 @@ public class CollectionFrag extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_collection, container, false);
         bg = (ImageView) rootView.findViewById(R.id.img_bg);
 
-        gridView = (GridView) rootView.findViewById(R.id.grid_gallery);
+        gridView = (ExpandableHeightGridView) rootView.findViewById(R.id.grid_gallery);
 
         imageList.add(0, "http:\\/\\/magarmach.com\\/wp-content\\/uploads\\/2015\\/10\\/IMG_0926-150x150.jpg");
         imageList.add(1, "http:\\/\\/magarmach.com\\/wp-content\\/uploads\\/2015\\/10\\/IMG_0923-150x150.jpg");

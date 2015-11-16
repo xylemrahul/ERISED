@@ -53,17 +53,19 @@
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
-            <GridView
+            <com.erised.utils.ExpandableHeightGridView
                 android:id="@+id/grid_gallery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tx_gallery"
                 android:columnWidth="100dp"
                 android:gravity="center"
-                android:numColumns="auto_fit"
+                android:horizontalSpacing="2dp"
+                android:verticalSpacing="3dp"
+                android:numColumns="3"
                 android:stretchMode="columnWidth">
 
-            </GridView>
+            </com.erised.utils.ExpandableHeightGridView>
         </RelativeLayout>
     </ScrollView>
 </FrameLayout>

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.erised.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -40,26 +41,28 @@ public class GridAdapter extends BaseAdapter {
         return 0;
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
         ImageView gallery;
-
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder vh;
-        View gridView = null;
-        LayoutInflater inflater = (LayoutInflater)ctxt.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ViewHolder vh = new ViewHolder();
 
-        if(convertView==null){
-            gridView = convertView;
+        if (convertView == null) {
 
-            vh = new ViewHolder();
-            gridView = inflater.inflate(R.layout.grid_items,null,false);
-
-            vh.gallery = (ImageView)gridView.findViewById(R.id.img_gallery);
+            LayoutInflater inflater = (LayoutInflater) ctxt.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.grid_items, null, false);
         }
-        return gridView;
+
+        vh.gallery = (ImageView) convertView.findViewById(R.id.img_gallery);
+
+        for (int i = 0; i < urls.size(); i++) {
+
+            Picasso.with(ctxt).load(urls.get(i)).into(vh.gallery);
+        }
+
+        return convertView;
     }
 }
