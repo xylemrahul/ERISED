@@ -123,38 +123,39 @@ public class ErisedMenuActivity extends BaseActivity implements Animation.Animat
     @Override
     public void onClick(View view) {
 
-        Intent intent = new Intent(ErisedMenuActivity.this, ProductDetails.class);
+        Intent intent = new Intent(ErisedMenuActivity.this, ProductsActivity.class);
 
         switch (view.getId()) {
             case R.id.tx_shirts:
 
+                intent.putExtra("title","T-Shirts(Men)");
                 startActivity(intent);
                 break;
 
             case R.id.tx_sarees:
-
+                intent.putExtra("title","Sarees");
                 startActivity(intent);
                 break;
 
             case R.id.tx_sunglass:
-
+                intent.putExtra("title","Sunglasses(Men)");
                 startActivity(intent);
                 break;
             case R.id.tx_shop:
-
+                intent.putExtra("title","Family Shopping");
                 startActivity(intent);
                 break;
             case R.id.tx_ethnic:
-
+                intent.putExtra("title","Ethnic Wear(Women)");
                 startActivity(intent);
                 break;
             case R.id.tx_cosmetic:
-
+                intent.putExtra("title","Cosmetics");
                 startActivity(intent);
                 break;
 
             case R.id.tx_bags:
-
+                intent.putExtra("title","Bags and Wallets");
                 startActivity(intent);
                 break;
         }

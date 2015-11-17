@@ -3,15 +3,10 @@ package com.erised;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.erised.models.ContactInfo;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Rahul on 17/9/15.
@@ -28,6 +23,11 @@ public class ProductsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_products);
 
         initWidgets();
+        String title = getIntent().getStringExtra("title");
+
+        getSupportActionBar().setTitle(title);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 //        ContactAdapter ca = new ContactAdapter(createList(30));
 //        recList.setAdapter(ca);
@@ -43,26 +43,29 @@ public class ProductsActivity extends AppCompatActivity {
 
     private void initWidgets() {
 
-        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("ERISED");
+//        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+//        collapsingToolbar.setTitle("ERISED");
 
-        recList = (RecyclerView) findViewById(R.id.cardList);
-        recList.setLayoutManager(new LinearLayoutManager(this));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+//        recList = (RecyclerView) findViewById(R.id.cardList);
+//        recList.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private List<ContactInfo> createList(int size) {
-
-        List<ContactInfo> result = new ArrayList<ContactInfo>();
-        for (int i = 1; i <= size; i++) {
-            ContactInfo ci = new ContactInfo();
-            ci.name = ContactInfo.NAME_PREFIX + i;
-            ci.surname = ContactInfo.SURNAME_PREFIX + i;
-//            ci.email = ContactInfo.EMAIL_PREFIX + i + "@test.com";
-
-            result.add(ci);
-        }
-        return result;
-    }
+//    private List<ContactInfo> createList(int size) {
+//
+//        List<ContactInfo> result = new ArrayList<ContactInfo>();
+//        for (int i = 1; i <= size; i++) {
+//            ContactInfo ci = new ContactInfo();
+//            ci.name = ContactInfo.NAME_PREFIX + i;
+//            ci.surname = ContactInfo.SURNAME_PREFIX + i;
+////            ci.email = ContactInfo.EMAIL_PREFIX + i + "@test.com";
+//
+//            result.add(ci);
+//        }
+//        return result;
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

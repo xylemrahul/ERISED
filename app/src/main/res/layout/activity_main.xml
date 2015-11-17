@@ -63,4 +63,15 @@
         android:text="@string/common_signin_button_text_long"
         android:textColor="@android:color/white" />
 
+
+    <com.erised.utils.MyTextView
+        android:id="@+id/tx_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:text="----SKIP----"
+        android:textSize="25sp" />
+
 </RelativeLayout>

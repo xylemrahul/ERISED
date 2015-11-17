@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.erised.base.BaseActivity;
 import com.erised.dialog.LoadingDialog;
 import com.erised.helper.VerifyLocation;
+import com.erised.utils.MyTextView;
 import com.erised.utils.SPManager;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -43,6 +44,7 @@ import java.util.Locale;
 public class LoginActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     private TextView info;
+    private MyTextView skip;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     private Button mSignInButton;
@@ -91,6 +93,8 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.Conne
         mSignInButton = (Button) findViewById(R.id.btnSignIn);
         info = (TextView) findViewById(R.id.info);
         loginButton = (LoginButton) findViewById(R.id.login_button);
+        skip = (MyTextView) findViewById(R.id.tx_skip);
+
     }
 
     @Override
@@ -137,6 +141,16 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.Conne
 //              info.setText("Login attempt failed.");
             }
         });
+
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mGoogleApiClient.isConnecting()) {
+                    mGoogleApiClient.connect();
+                }
+//                launchMenuActivity();
+            }
+        });
     }
 
     @Override
@@ -150,11 +164,9 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.Conne
     @Override
     protected void onStart() {
         super.onStart();
-
         mGoogleApiClient.connect();
         VerifyLocation verifyLocation = new VerifyLocation(this);
         verifyLocation.checkLocation();
-
     }
 
     @Override
@@ -176,7 +188,6 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.Conne
                 }
                 mIntentInProgress = false;
                 if (!mGoogleApiClient.isConnecting()) {
-
                     mGoogleApiClient.connect();
                 }
                 break;
@@ -234,7 +245,7 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.Conne
                 addresses = geocoder.getFromLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
             } catch (NullPointerException e) {
                 e.printStackTrace();
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -357,13 +368,12 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.Conne
         }
     }
 
-
     private void launchMenuActivity() {
 
         finish();
 
         Intent intent = new Intent(LoginActivity.this, ErisedMenuActivity.class);
-        intent.putExtra("City",city);
+        intent.putExtra("City", city);
         startActivity(intent);
     }
 }
